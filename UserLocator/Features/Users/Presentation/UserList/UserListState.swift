@@ -1,5 +1,6 @@
 enum UserListState: Equatable {
     case loading
-    case loaded([UserListItem])
-    case failed
+    case loaded([UserListItem], refreshFailure: UsersError?)
+    case empty
+    case failed(UsersError)
 }

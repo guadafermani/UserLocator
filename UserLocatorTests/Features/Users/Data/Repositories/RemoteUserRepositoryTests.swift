@@ -19,29 +19,67 @@ struct RemoteUserRepositoryTests {
     }
 
     @Test
-    func whenJSONIsMalformed_throwsError() async {
-        let sut = RemoteUserRepository(client: HTTPClientSpy(result: .success(UsersJSONFixture.malformed)))
-
-        await #expect(throws: (any Error).self) {
-            try await sut.fetchUsers()
-        }
-    }
-
-    @Test
-    func whenClientFails_propagatesTheError() async {
-        let sut = RemoteUserRepository(client: HTTPClientSpy(result: .failure(TestError.any)))
-
-        await #expect(throws: TestError.any) {
-            try await sut.fetchUsers()
-        }
-    }
-
-    @Test
     func whenFetching_requestsTheUsersEndpoint() async throws {
         let client = HTTPClientSpy(result: .success(UsersJSONFixture.valid))
 
         _ = try await RemoteUserRepository(client: client).fetchUsers()
 
         #expect(await client.requestedEndpoints == [.users])
+    }
+
+    @Test(arguments: [URLError.Code.notConnectedToInternet, .timedOut, .networkConnectionLost])
+    func whenTheClientFailsWithATransportError_throwsNetwork(code: URLError.Code) async {
+        let sut = RemoteUserRepository(client: HTTPClientSpy(result: .failure(URLError(code))))
+
+        await #expect(throws: UsersError.network) {
+            try await sut.fetchUsers()
+        }
+    }
+
+    @Test
+    func whenTheResponseHasAnErrorStatusCode_throwsServer() async {
+        let client = HTTPClientSpy(result: .failure(HTTPClientError.unexpectedStatusCode(500)))
+        let sut = RemoteUserRepository(client: client)
+
+        await #expect(throws: UsersError.server) {
+            try await sut.fetchUsers()
+        }
+    }
+
+    @Test
+    func whenJSONIsMalformed_throwsDecoding() async {
+        let sut = RemoteUserRepository(client: HTTPClientSpy(result: .success(UsersJSONFixture.malformed)))
+
+        await #expect(throws: UsersError.decoding) {
+            try await sut.fetchUsers()
+        }
+    }
+
+    @Test(arguments: [HTTPClientError.invalidURL, .invalidResponse])
+    func whenTheClientCannotProduceAUsableResponse_throwsUnknown(error: HTTPClientError) async {
+        let sut = RemoteUserRepository(client: HTTPClientSpy(result: .failure(error)))
+
+        await #expect(throws: UsersError.unknown) {
+            try await sut.fetchUsers()
+        }
+    }
+
+    @Test
+    func whenTheClientFailsWithAnUnrecognisedError_throwsUnknown() async {
+        let sut = RemoteUserRepository(client: HTTPClientSpy(result: .failure(TestError.any)))
+
+        await #expect(throws: UsersError.unknown) {
+            try await sut.fetchUsers()
+        }
+    }
+
+    @Test
+    func whenTheRequestIsCancelled_throwsCancellationError() async {
+        let client = HTTPClientSpy(result: .failure(URLError(.cancelled)))
+        let sut = RemoteUserRepository(client: client)
+
+        await #expect(throws: CancellationError.self) {
+            try await sut.fetchUsers()
+        }
     }
 }

@@ -7,4 +7,5 @@ enum AppColor {
     static let textPrimary = Color(.appTextPrimary)
     static let textSecondary = Color(.appTextSecondary)
     static let accent = Color(.appAccent)
+    static let error = Color(.appError)
 }

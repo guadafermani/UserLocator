@@ -17,18 +17,37 @@ final class UserListViewModel {
             return await runningLoad.value
         }
 
-        let load = Task { await performLoad() }
+        state = .loading
+        let load = Task { await fetch(failingWith: UserListState.failed) }
         runningLoad = load
         await load.value
         runningLoad = nil
     }
 
-    private func performLoad() async {
+    func refresh() async {
+        guard case let .loaded(items, _) = state else { return }
+
+        state = .loaded(items, refreshFailure: nil)
+        await fetch(failingWith: { .loaded(items, refreshFailure: $0) })
+    }
+
+    private func fetch(failingWith failureState: (UsersError) -> UserListState) async {
         do {
-            state = .loaded(try await fetchUsers.execute().map(makeItem))
+            state = makeState(for: try await fetchUsers.execute())
+        } catch is CancellationError {
+            return
         } catch {
-            state = .failed
+            state = failureState(makeFailure(from: error))
         }
+    }
+
+    private func makeState(for users: [User]) -> UserListState {
+        let items = users.map(makeItem)
+        return items.isEmpty ? .empty : .loaded(items, refreshFailure: nil)
+    }
+
+    private func makeFailure(from error: Error) -> UsersError {
+        error as? UsersError ?? .unknown
     }
 
     private func makeItem(from user: User) -> UserListItem {

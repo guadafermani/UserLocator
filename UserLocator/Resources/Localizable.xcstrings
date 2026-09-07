@@ -1,39 +1,204 @@
 {
-  "sourceLanguage" : "es",
-  "strings" : {
-    "user_list.error.message" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No pudimos cargar los usuarios."
+  "sourceLanguage": "es",
+  "strings": {
+    "user_list.empty.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar"
           }
         }
       }
     },
-    "user_list.loading.accessibility" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cargando usuarios"
+    "user_list.empty.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay nadie para mostrar."
           }
         }
       }
     },
-    "user_list.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UserLocator"
+    "user_list.empty.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay usuarios"
+          }
+        }
+      }
+    },
+    "user_list.error.decoding.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recibimos datos que no pudimos leer. Probá de nuevo."
+          }
+        }
+      }
+    },
+    "user_list.error.decoding.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respuesta inesperada"
+          }
+        }
+      }
+    },
+    "user_list.error.network.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisá tu conexión a internet y volvé a intentar."
+          }
+        }
+      }
+    },
+    "user_list.error.network.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conexión"
+          }
+        }
+      }
+    },
+    "user_list.error.retry": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reintentar"
+          }
+        }
+      }
+    },
+    "user_list.error.server.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estamos teniendo problemas para conectarnos. Probá de nuevo en unos minutos."
+          }
+        }
+      }
+    },
+    "user_list.error.server.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El servidor no responde"
+          }
+        }
+      }
+    },
+    "user_list.error.unknown.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No pudimos cargar los usuarios. Probá de nuevo."
+          }
+        }
+      }
+    },
+    "user_list.error.unknown.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algo salió mal"
+          }
+        }
+      }
+    },
+    "user_list.loading.accessibility": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando usuarios"
+          }
+        }
+      }
+    },
+    "user_list.notice.decoding": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo actualizar: respuesta inesperada"
+          }
+        }
+      }
+    },
+    "user_list.notice.network": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo actualizar: sin conexión"
+          }
+        }
+      }
+    },
+    "user_list.notice.server": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo actualizar: el servidor no responde"
+          }
+        }
+      }
+    },
+    "user_list.notice.unknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo actualizar"
+          }
+        }
+      }
+    },
+    "user_list.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UserLocator"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }
