@@ -18,6 +18,13 @@ struct AppConfigurationTests {
         #expect(sut.googleMapsAPIKey == "AIzaSyExampleKeyValue")
     }
 
+    @Test(arguments: ["\"AIzaSyExampleKeyValue\"", "'AIzaSyExampleKeyValue'"])
+    func whenKeyIsWrappedInQuotes_unwrapsIt(key: String) {
+        let sut = AppConfiguration(googleMapsAPIKey: key)
+
+        #expect(sut.googleMapsAPIKey == "AIzaSyExampleKeyValue")
+    }
+
     @Test(arguments: [nil, "", "   ", "TU_API_KEY_DE_GOOGLE_MAPS_ACA"])
     func whenKeyIsNotUsable_isNil(key: String?) {
         let sut = AppConfiguration(googleMapsAPIKey: key)

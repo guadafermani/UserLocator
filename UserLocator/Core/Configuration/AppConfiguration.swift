@@ -8,7 +8,8 @@ struct AppConfiguration: Sendable {
     let googleMapsAPIKey: String?
 
     init(googleMapsAPIKey: String?) {
-        let trimmed = googleMapsAPIKey?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let unquoted = googleMapsAPIKey?.trimmingCharacters(in: CharacterSet(charactersIn: "\"'"))
+        let trimmed = unquoted?.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard let trimmed, !trimmed.isEmpty, trimmed != Self.googleMapsAPIKeyPlaceholder else {
             self.googleMapsAPIKey = nil
