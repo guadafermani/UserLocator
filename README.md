@@ -7,7 +7,8 @@ Each row in the list shows the person's name, their username and an avatar with 
 While the data is in flight an animated skeleton stands in for it; if the API fails, a clear message
 with a retry button takes its place; and pulling down asks for the data again. Tapping a row opens
 the map, centred on that person's location, with a marker drawn by the app carrying their initials
-and a card at the bottom with their name, username and postal address.
+and a card at the bottom with their name, username and postal address. The map can be panned,
+zoomed and rotated freely, and a floating button brings the camera back to where it started.
 
 The interface is in Spanish. It works in light and dark appearance, from an iPhone SE to a Pro Max,
 in portrait and landscape, and follows whatever text size the system is set to.
@@ -72,7 +73,7 @@ works normally, and the map screen explains that the key is missing and how to c
 of failing.
 
 **3. Run the tests.** With `⌘U` in Xcode, or with `xcodebuild test -scheme UserLocator -destination
-'platform=iOS Simulator,name=iPhone 17'`. There are 77 of them, and none needs the network or an API
+'platform=iOS Simulator,name=iPhone 17'`. There are 81 of them, and none needs the network or an API
 key.
 
 If you have SwiftLint installed, `swiftlint --strict` checks the style. It is not a build phase and
@@ -150,7 +151,7 @@ the card.
 | `Features/Users/Domain/` | Entities, use cases, errors and repository protocols |
 | `Features/Users/Data/` | DTOs, mappers and the remote repository |
 | `Features/Users/Presentation/UserList/` | The list screen: view, view model and its presentation model |
-| `Features/Users/Presentation/UserMap/` | The map screen: view, view model, the SDK wrapper and the marker drawing |
+| `Features/Users/Presentation/UserMap/` | The map screen: view, view model, the SDK wrapper, the camera and the marker drawing |
 | `Features/Users/Presentation/Navigation/` | Typed navigation routes |
 | `Resources/` | The string catalog and the colour assets |
 | `UserLocatorTests/` | Mirrors the production tree exactly, plus `Support/` with fixtures and doubles |
@@ -188,7 +189,7 @@ model and can be asserted in a test, and the view is left to draw it.
 
 ## Testing strategy
 
-77 tests written with **Swift Testing**, none of which touches the network or needs an API key. The
+81 tests written with **Swift Testing**, none of which touches the network or needs an API key. The
 test doubles are hand-written against the protocols, without a mocking library: they are a few lines
 each and they make what is being simulated explicit.
 
@@ -205,6 +206,8 @@ What is covered:
   empty input.
 - **The marker drawing**, by reading pixels from the generated image to verify its geometry, its
   palette and that it is redrawn when the appearance changes.
+- **The map's initial camera**, which is also what the recenter button restores: the coordinate it
+  targets, its zoom level, and that it faces north without tilt.
 
 What is deliberately not tested: SwiftUI view bodies, the Google Maps wrapper and the dependency
 wiring. Those are declarative or integration code whose behaviour is verified by looking at the app,

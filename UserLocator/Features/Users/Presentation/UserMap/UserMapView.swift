@@ -3,10 +3,12 @@ import SwiftUI
 struct UserMapView: View {
     private static let missingKeyIcon = "map"
     private static let cardMaximumHeightRatio: CGFloat = 1.0 / 3
+    private static let recenterButtonRow = AppSpacing.minimumTapTarget + AppSpacing.medium
 
     let viewModel: UserMapViewModel
 
     @State private var cardContentHeight: CGFloat = 0
+    @State private var recenterRequests = 0
 
     var body: some View {
         content
@@ -40,11 +42,17 @@ struct UserMapView: View {
                 coordinate: coordinate,
                 initials: viewModel.markerInitials,
                 markerAccessibilityLabel: markerAccessibilityLabel,
-                bottomInset: cardHeight
+                bottomInset: cardHeight + Self.recenterButtonRow,
+                recenterRequests: recenterRequests
             )
             .ignoresSafeArea(edges: [.horizontal, .bottom])
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                card(height: cardHeight)
+                VStack(alignment: .trailing, spacing: AppSpacing.medium) {
+                    RecenterButton { recenterRequests += 1 }
+                        .padding(.trailing, AppSpacing.large)
+
+                    card(height: cardHeight)
+                }
             }
         }
     }

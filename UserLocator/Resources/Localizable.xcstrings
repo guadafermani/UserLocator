@@ -243,6 +243,17 @@
         }
       }
     },
+    "user_map.recenter.accessibility_label": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a centrar el mapa"
+          }
+        }
+      }
+    },
     "user_map.title": {
       "extractionState": "manual",
       "localizations": {

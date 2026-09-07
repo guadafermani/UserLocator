@@ -13,5 +13,6 @@ enum AppTypography {
     static let stateIcon = Font.system(.largeTitle)
     static let notice = Font.system(.footnote)
     static let disclosure = Font.system(.footnote, weight: .semibold)
+    static let mapControlIcon = Font.system(size: 20, weight: .semibold)
     static let markerInitials = UIFont.systemFont(ofSize: 13, weight: .semibold)
 }

@@ -2,12 +2,11 @@ import GoogleMaps
 import SwiftUI
 
 struct GoogleMapView: UIViewRepresentable {
-    private static let cameraZoom: Float = 2
-
     let coordinate: Coordinate
     let initials: String?
     let markerAccessibilityLabel: String
     let bottomInset: CGFloat
+    let recenterRequests: Int
 
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.displayScale) private var displayScale
@@ -20,7 +19,7 @@ struct GoogleMapView: UIViewRepresentable {
         let position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
 
         let options = GMSMapViewOptions()
-        options.camera = GMSCameraPosition(target: position, zoom: Self.cameraZoom)
+        options.camera = MapCamera.initial(at: coordinate)
 
         let mapView = GMSMapView(options: options)
         mapView.paddingAdjustmentBehavior = .always
@@ -30,6 +29,7 @@ struct GoogleMapView: UIViewRepresentable {
         marker.groundAnchor = MarkerIconFactory.groundAnchor
         marker.map = mapView
         context.coordinator.marker = marker
+        context.coordinator.appliedRecenterRequests = recenterRequests
 
         return mapView
     }
@@ -40,6 +40,11 @@ struct GoogleMapView: UIViewRepresentable {
         uiView.overrideUserInterfaceStyle = traits.userInterfaceStyle
         uiView.padding = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         context.coordinator.marker?.icon = MarkerIconFactory.makeIcon(initials: initials, traits: traits)
+
+        if context.coordinator.appliedRecenterRequests != recenterRequests {
+            context.coordinator.appliedRecenterRequests = recenterRequests
+            uiView.animate(to: MapCamera.initial(at: coordinate))
+        }
     }
 
     private func makeTraits() -> UITraitCollection {
@@ -52,5 +57,6 @@ struct GoogleMapView: UIViewRepresentable {
     @MainActor
     final class Coordinator {
         var marker: GMSMarker?
+        var appliedRecenterRequests = 0
     }
 }
