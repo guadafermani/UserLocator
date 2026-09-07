@@ -12,8 +12,8 @@ struct UserListSkeletonView: View {
     var body: some View {
         List(0..<Self.rowCount, id: \.self) { _ in
             row
-                .listRowBackground(AppColor.surface)
-                .listRowSeparatorTint(AppColor.surfaceSecondary)
+                .listRowBackground(AppColor.surface.color)
+                .listRowSeparatorTint(AppColor.surfaceSecondary.color)
         }
         .listStyle(.plain)
         .scrollDisabled(true)

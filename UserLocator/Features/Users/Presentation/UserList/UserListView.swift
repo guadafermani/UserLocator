@@ -53,8 +53,8 @@ struct UserListView: View {
             List(items) { item in
                 row(for: item)
                     .listRowInsets(EdgeInsets())
-                    .listRowBackground(AppColor.surface)
-                    .listRowSeparatorTint(AppColor.surfaceSecondary)
+                    .listRowBackground(AppColor.surface.color)
+                    .listRowSeparatorTint(AppColor.surfaceSecondary.color)
                     .alignmentGuide(.listRowSeparatorLeading) { _ in AppSpacing.large }
             }
             .listStyle(.plain)

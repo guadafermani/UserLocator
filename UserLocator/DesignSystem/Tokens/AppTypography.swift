@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 enum AppTypography {
     static let rowTitle = Font.system(.body, weight: .semibold)
@@ -9,4 +10,5 @@ enum AppTypography {
     static let stateIcon = Font.system(.largeTitle)
     static let notice = Font.system(.footnote)
     static let disclosure = Font.system(.footnote, weight: .semibold)
+    static let markerInitials = UIFont.systemFont(ofSize: 13, weight: .semibold)
 }

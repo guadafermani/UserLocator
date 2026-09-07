@@ -1,11 +1,9 @@
-import SwiftUI
-
 enum AppColor {
-    static let background = Color(.appBackground)
-    static let surface = Color(.appSurface)
-    static let surfaceSecondary = Color(.appSurfaceSecondary)
-    static let textPrimary = Color(.appTextPrimary)
-    static let textSecondary = Color(.appTextSecondary)
-    static let accent = Color(.appAccent)
-    static let error = Color(.appError)
+    static let background = AppColorToken(resource: .appBackground)
+    static let surface = AppColorToken(resource: .appSurface)
+    static let surfaceSecondary = AppColorToken(resource: .appSurfaceSecondary)
+    static let textPrimary = AppColorToken(resource: .appTextPrimary)
+    static let textSecondary = AppColorToken(resource: .appTextSecondary)
+    static let accent = AppColorToken(resource: .appAccent)
+    static let error = AppColorToken(resource: .appError)
 }

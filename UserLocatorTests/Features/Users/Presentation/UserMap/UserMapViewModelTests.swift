@@ -28,6 +28,20 @@ struct UserMapViewModelTests {
         #expect(sut.title == "Leanne Graham")
     }
 
+    @Test
+    func whenCreated_markerInitialsComeFromTheName() {
+        let sut = makeSUT(name: "Leanne Graham")
+
+        #expect(sut.markerInitials == "LG")
+    }
+
+    @Test
+    func whenTheNameHasNoInitials_hasNoMarkerInitials() {
+        let sut = makeSUT(name: "   ")
+
+        #expect(sut.markerInitials == nil)
+    }
+
     private func makeSUT(
         name: String = "Leanne Graham",
         coordinate: Coordinate = Coordinate(latitude: -37.3159, longitude: 81.1496),

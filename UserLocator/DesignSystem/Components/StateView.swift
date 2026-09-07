@@ -7,14 +7,14 @@ struct StateView: View {
     }
 
     let icon: String
-    let iconColor: Color
+    let iconColor: AppColorToken
     let title: LocalizedStringKey
     let message: LocalizedStringKey
     let action: Action?
 
     init(
         icon: String,
-        iconColor: Color,
+        iconColor: AppColorToken,
         title: LocalizedStringKey,
         message: LocalizedStringKey,
         action: Action? = nil

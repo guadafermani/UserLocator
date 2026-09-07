@@ -19,6 +19,7 @@ struct UserMapView: View {
         case let .ready(coordinate):
             GoogleMapView(
                 coordinate: coordinate,
+                initials: viewModel.markerInitials,
                 markerAccessibilityLabel: String(localized: "user_map.marker.accessibility_label \(viewModel.title)")
             )
             .ignoresSafeArea(edges: .bottom)
