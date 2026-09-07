@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct UserRowView: View {
+    private static let disclosureIcon = "chevron.right"
+
     let item: UserListItem
+    let showsDisclosure: Bool
 
     var body: some View {
         HStack(spacing: AppSpacing.medium) {
@@ -20,8 +23,16 @@ struct UserRowView: View {
             }
 
             Spacer(minLength: 0)
+
+            if showsDisclosure {
+                Image(systemName: Self.disclosureIcon)
+                    .font(AppTypography.disclosure)
+                    .foregroundStyle(AppColor.textSecondary)
+                    .accessibilityHidden(true)
+            }
         }
-        .padding(.vertical, AppSpacing.small)
+        .padding(.horizontal, AppSpacing.large)
+        .padding(.vertical, AppSpacing.extraLarge)
         .accessibilityElement(children: .combine)
     }
 }

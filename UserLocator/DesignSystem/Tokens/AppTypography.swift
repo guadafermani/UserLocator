@@ -8,4 +8,5 @@ enum AppTypography {
     static let stateTitle = Font.system(.title3, weight: .semibold)
     static let stateIcon = Font.system(.largeTitle)
     static let notice = Font.system(.footnote)
+    static let disclosure = Font.system(.footnote, weight: .semibold)
 }

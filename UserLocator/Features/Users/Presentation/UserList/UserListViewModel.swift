@@ -55,7 +55,8 @@ final class UserListViewModel {
             id: user.id,
             title: user.username,
             subtitle: user.name,
-            initials: InitialsFormatter.initials(from: user.name)
+            initials: InitialsFormatter.initials(from: user.name),
+            route: user.coordinate.map { .map(name: user.name, coordinate: $0) }
         )
     }
 }

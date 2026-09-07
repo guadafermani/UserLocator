@@ -14,13 +14,26 @@ struct UserListViewModelTests {
 
     @Test
     func whenLoadSucceeds_showsOneItemPerUser() async {
+        let coordinate = Coordinate(latitude: -37.3159, longitude: 81.1496)
         let sut = makeSUT(result: .success([.fixture(id: 1), .fixture(id: 2)]))
 
         await sut.load()
 
         #expect(sut.state == .loaded([
-            UserListItem(id: 1, title: "Bret", subtitle: "Leanne Graham", initials: "LG"),
-            UserListItem(id: 2, title: "Bret", subtitle: "Leanne Graham", initials: "LG")
+            UserListItem(
+                id: 1,
+                title: "Bret",
+                subtitle: "Leanne Graham",
+                initials: "LG",
+                route: .map(name: "Leanne Graham", coordinate: coordinate)
+            ),
+            UserListItem(
+                id: 2,
+                title: "Bret",
+                subtitle: "Leanne Graham",
+                initials: "LG",
+                route: .map(name: "Leanne Graham", coordinate: coordinate)
+            )
         ], refreshFailure: nil))
     }
 
@@ -177,6 +190,25 @@ struct UserListViewModelTests {
         await sut.refresh()
 
         #expect(sut.state == stateBeforeRefresh)
+    }
+
+    @Test
+    func whenUserHasACoordinate_itemRoutesToTheMapWithNameAndCoordinate() async {
+        let coordinate = Coordinate(latitude: -37.3159, longitude: 81.1496)
+        let sut = makeSUT(result: .success([.fixture(name: "Leanne Graham", coordinate: coordinate)]))
+
+        await sut.load()
+
+        #expect(sut.state.items.first?.route == .map(name: "Leanne Graham", coordinate: coordinate))
+    }
+
+    @Test
+    func whenUserHasNoCoordinate_itemHasNoRoute() async {
+        let sut = makeSUT(result: .success([.fixture(coordinate: nil)]))
+
+        await sut.load()
+
+        #expect(sut.state.items.first?.route == nil)
     }
 
     @Test

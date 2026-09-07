@@ -4,20 +4,20 @@ struct UserListView: View {
     private static let emptyIcon = "person.2.slash"
 
     @State private var viewModel: UserListViewModel
+    private let onSelect: (UsersRoute) -> Void
 
-    init(viewModel: UserListViewModel) {
+    init(viewModel: UserListViewModel, onSelect: @escaping (UsersRoute) -> Void) {
         _viewModel = State(initialValue: viewModel)
+        self.onSelect = onSelect
     }
 
     var body: some View {
-        NavigationStack {
-            content
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(AppColor.background)
-                .navigationTitle(Text("user_list.title"))
-                .appBarStyle()
-        }
-        .task { await viewModel.load() }
+        content
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(AppColor.background)
+            .navigationTitle(Text("user_list.title"))
+            .appBarStyle()
+            .task { await viewModel.load() }
     }
 
     @ViewBuilder
@@ -35,8 +35,7 @@ struct UserListView: View {
                 iconColor: AppColor.textSecondary,
                 title: "user_list.empty.title",
                 message: "user_list.empty.message",
-                actionTitle: "user_list.empty.action",
-                action: reload
+                action: StateView.Action(title: "user_list.empty.action", perform: reload)
             )
 
         case let .failed(error):
@@ -52,14 +51,29 @@ struct UserListView: View {
             }
 
             List(items) { item in
-                UserRowView(item: item)
+                row(for: item)
+                    .listRowInsets(EdgeInsets())
                     .listRowBackground(AppColor.surface)
                     .listRowSeparatorTint(AppColor.surfaceSecondary)
+                    .alignmentGuide(.listRowSeparatorLeading) { _ in AppSpacing.large }
             }
             .listStyle(.plain)
             .refreshable { await viewModel.refresh() }
         }
         .animation(.easeInOut(duration: AppDuration.noticeTransition), value: refreshFailure)
+    }
+
+    @ViewBuilder
+    private func row(for item: UserListItem) -> some View {
+        if let route = item.route {
+            Button { onSelect(route) } label: {
+                UserRowView(item: item, showsDisclosure: true)
+            }
+            .buttonStyle(PressableRowStyle())
+            .accessibilityHint(Text("user_list.row.accessibility_hint"))
+        } else {
+            UserRowView(item: item, showsDisclosure: false)
+        }
     }
 
     private func failure(_ presentation: UsersErrorPresentation) -> some View {
@@ -68,8 +82,7 @@ struct UserListView: View {
             iconColor: AppColor.error,
             title: LocalizedStringKey(presentation.titleKey),
             message: LocalizedStringKey(presentation.messageKey),
-            actionTitle: "user_list.error.retry",
-            action: reload
+            action: StateView.Action(title: "user_list.error.retry", perform: reload)
         )
     }
 

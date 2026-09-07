@@ -3,4 +3,5 @@ struct UserListItem: Equatable, Identifiable, Sendable {
     let title: String
     let subtitle: String
     let initials: String?
+    let route: UsersRoute?
 }

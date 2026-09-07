@@ -188,6 +188,17 @@
         }
       }
     },
+    "user_list.row.accessibility_hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre el mapa con su ubicación"
+          }
+        }
+      }
+    },
     "user_list.title": {
       "extractionState": "manual",
       "localizations": {
@@ -195,6 +206,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "UserLocator"
+          }
+        }
+      }
+    },
+    "user_map.marker.accessibility_label %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ubicación de %@"
+          }
+        }
+      }
+    },
+    "user_map.missing_key.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiá Config/Secrets.example.xcconfig a Config/Secrets.xcconfig, pegá tu API key de Google Maps y volvé a compilar."
+          }
+        }
+      }
+    },
+    "user_map.missing_key.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta la API key de Google Maps"
           }
         }
       }

@@ -12,9 +12,24 @@ struct RemoteUserRepositoryTests {
         let users = try await sut.fetchUsers()
 
         #expect(users == [
-            User(id: 1, name: "Leanne Graham", username: "Bret"),
-            User(id: 6, name: "Mrs. Dennis Schulist", username: "Leopoldo_Corkery"),
-            User(id: 8, name: "Nicholas Runolfsdottir V", username: "Maxime_Nienow")
+            User(
+                id: 1,
+                name: "Leanne Graham",
+                username: "Bret",
+                coordinate: Coordinate(latitude: -37.3159, longitude: 81.1496)
+            ),
+            User(
+                id: 6,
+                name: "Mrs. Dennis Schulist",
+                username: "Leopoldo_Corkery",
+                coordinate: Coordinate(latitude: -71.4197, longitude: 71.7478)
+            ),
+            User(
+                id: 8,
+                name: "Nicholas Runolfsdottir V",
+                username: "Maxime_Nienow",
+                coordinate: Coordinate(latitude: -14.3990, longitude: -120.7677)
+            )
         ])
     }
 

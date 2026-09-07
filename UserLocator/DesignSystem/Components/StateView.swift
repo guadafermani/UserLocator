@@ -1,12 +1,30 @@
 import SwiftUI
 
 struct StateView: View {
+    struct Action {
+        let title: LocalizedStringKey
+        let perform: () -> Void
+    }
+
     let icon: String
     let iconColor: Color
     let title: LocalizedStringKey
     let message: LocalizedStringKey
-    let actionTitle: LocalizedStringKey
-    let action: () -> Void
+    let action: Action?
+
+    init(
+        icon: String,
+        iconColor: Color,
+        title: LocalizedStringKey,
+        message: LocalizedStringKey,
+        action: Action? = nil
+    ) {
+        self.icon = icon
+        self.iconColor = iconColor
+        self.title = title
+        self.message = message
+        self.action = action
+    }
 
     var body: some View {
         VStack(spacing: AppSpacing.medium) {
@@ -26,13 +44,15 @@ struct StateView: View {
             }
             .multilineTextAlignment(.center)
 
-            Button(action: action) {
-                Text(actionTitle)
-                    .padding(.horizontal, AppSpacing.large)
-                    .frame(minHeight: AppSpacing.minimumTapTarget)
+            if let action {
+                Button(action: action.perform) {
+                    Text(action.title)
+                        .padding(.horizontal, AppSpacing.large)
+                        .frame(minHeight: AppSpacing.minimumTapTarget)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(AppColor.accent)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(AppColor.accent)
         }
         .padding(AppSpacing.extraLarge)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
