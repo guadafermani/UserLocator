@@ -1,0 +1,5 @@
+// `#include?` es opcional: sin Secrets.xcconfig el proyecto compila igual y la app
+// muestra el estado de "falta la API key" en vez de crashear.
+GOOGLE_MAPS_API_KEY =
+
+#include? "Secrets.xcconfig"

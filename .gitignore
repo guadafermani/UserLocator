@@ -1,0 +1,45 @@
+# ---- Secretos ----
+Secrets.xcconfig
+*.secret.xcconfig
+GoogleService-Info.plist
+.env
+.env.*
+
+# ---- Instrucciones internas ----
+.claude/
+
+# ---- macOS ----
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# ---- Xcode (datos de usuario) ----
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+*.xcscmblueprint
+*.xccheckout
+
+# ---- Xcode (build) ----
+build/
+DerivedData/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# ---- Swift Package Manager ----
+.build/
+.swiftpm/
+Packages/
+
+# ---- CocoaPods ----
+Pods/
+
+# ---- Varios ----
+*.log
+timeline.xctimeline
+playground.xcworkspace
