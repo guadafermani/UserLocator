@@ -1,0 +1,39 @@
+{
+  "sourceLanguage" : "es",
+  "strings" : {
+    "user_list.error.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No pudimos cargar los usuarios."
+          }
+        }
+      }
+    },
+    "user_list.loading.accessibility" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando usuarios"
+          }
+        }
+      }
+    },
+    "user_list.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UserLocator"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

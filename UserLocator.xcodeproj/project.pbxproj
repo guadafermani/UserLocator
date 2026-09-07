@@ -150,10 +150,11 @@
 				};
 			};
 			buildConfigurationList = 6A513F06304E5ADF009A2407 /* Build configuration list for PBXProject "UserLocator" */;
-			developmentRegion = en;
+			developmentRegion = es;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 				Base,
 			);
 			mainGroup = 6A513F02304E5ADF009A2407;
