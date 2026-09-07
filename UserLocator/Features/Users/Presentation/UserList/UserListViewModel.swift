@@ -53,10 +53,10 @@ final class UserListViewModel {
     private func makeItem(from user: User) -> UserListItem {
         UserListItem(
             id: user.id,
-            title: user.username,
-            subtitle: user.name,
+            title: user.name,
+            subtitle: user.username,
             initials: InitialsFormatter.initials(from: user.name),
-            route: user.coordinate.map { .map(name: user.name, coordinate: $0) }
+            route: LocatedUser(user: user).map(UsersRoute.map)
         )
     }
 }

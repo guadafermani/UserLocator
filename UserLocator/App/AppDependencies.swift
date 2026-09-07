@@ -22,7 +22,7 @@ struct AppDependencies {
         )
     }
 
-    func makeUserMapViewModel(name: String, coordinate: Coordinate) -> UserMapViewModel {
-        UserMapViewModel(name: name, coordinate: coordinate, isMapAvailable: isMapAvailable)
+    func makeUserMapViewModel(user: LocatedUser) -> UserMapViewModel {
+        UserMapViewModel(user: user, isMapAvailable: isMapAvailable)
     }
 }

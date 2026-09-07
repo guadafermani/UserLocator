@@ -7,6 +7,7 @@ struct GoogleMapView: UIViewRepresentable {
     let coordinate: Coordinate
     let initials: String?
     let markerAccessibilityLabel: String
+    let bottomInset: CGFloat
 
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.displayScale) private var displayScale
@@ -22,6 +23,7 @@ struct GoogleMapView: UIViewRepresentable {
         options.camera = GMSCameraPosition(target: position, zoom: Self.cameraZoom)
 
         let mapView = GMSMapView(options: options)
+        mapView.paddingAdjustmentBehavior = .always
 
         let marker = GMSMarker(position: position)
         marker.accessibilityLabel = markerAccessibilityLabel
@@ -36,6 +38,7 @@ struct GoogleMapView: UIViewRepresentable {
         let traits = makeTraits()
 
         uiView.overrideUserInterfaceStyle = traits.userInterfaceStyle
+        uiView.padding = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         context.coordinator.marker?.icon = MarkerIconFactory.makeIcon(initials: initials, traits: traits)
     }
 

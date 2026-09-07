@@ -12,8 +12,14 @@ extension UserDTO {
 }
 
 extension UserDTO.Address {
-    static func fixture(geo: UserDTO.Geo? = .fixture()) -> UserDTO.Address {
-        UserDTO.Address(geo: geo)
+    static func fixture(
+        street: String? = "Kulas Light",
+        suite: String? = "Apt. 556",
+        city: String? = "Gwenborough",
+        zipcode: String? = "92998-3874",
+        geo: UserDTO.Geo? = .fixture()
+    ) -> UserDTO.Address {
+        UserDTO.Address(street: street, suite: suite, city: city, zipcode: zipcode, geo: geo)
     }
 }
 

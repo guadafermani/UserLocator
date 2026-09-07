@@ -5,6 +5,10 @@ struct UserDTO: Decodable, Equatable {
     let address: Address?
 
     struct Address: Decodable, Equatable {
+        let street: String?
+        let suite: String?
+        let city: String?
+        let zipcode: String?
         let geo: Geo?
     }
 

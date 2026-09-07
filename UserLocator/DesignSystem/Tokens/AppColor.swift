@@ -6,4 +6,5 @@ enum AppColor {
     static let textSecondary = AppColorToken(resource: .appTextSecondary)
     static let accent = AppColorToken(resource: .appAccent)
     static let error = AppColorToken(resource: .appError)
+    static let shadow = AppColorToken(resource: .appShadow)
 }

@@ -14,7 +14,12 @@ struct UserListViewModelTests {
 
     @Test
     func whenLoadSucceeds_showsOneItemPerUser() async {
-        let coordinate = Coordinate(latitude: -37.3159, longitude: 81.1496)
+        let destination = LocatedUser(
+            name: "Leanne Graham",
+            username: "Bret",
+            address: .fixture(),
+            coordinate: Coordinate(latitude: -37.3159, longitude: 81.1496)
+        )
         let sut = makeSUT(result: .success([.fixture(id: 1), .fixture(id: 2)]))
 
         await sut.load()
@@ -22,17 +27,17 @@ struct UserListViewModelTests {
         #expect(sut.state == .loaded([
             UserListItem(
                 id: 1,
-                title: "Bret",
-                subtitle: "Leanne Graham",
+                title: "Leanne Graham",
+                subtitle: "Bret",
                 initials: "LG",
-                route: .map(name: "Leanne Graham", coordinate: coordinate)
+                route: .map(destination)
             ),
             UserListItem(
                 id: 2,
-                title: "Bret",
-                subtitle: "Leanne Graham",
+                title: "Leanne Graham",
+                subtitle: "Bret",
                 initials: "LG",
-                route: .map(name: "Leanne Graham", coordinate: coordinate)
+                route: .map(destination)
             )
         ], refreshFailure: nil))
     }
@@ -193,13 +198,18 @@ struct UserListViewModelTests {
     }
 
     @Test
-    func whenUserHasACoordinate_itemRoutesToTheMapWithNameAndCoordinate() async {
+    func whenUserHasACoordinate_itemRoutesToTheMapWithTheUser() async {
         let coordinate = Coordinate(latitude: -37.3159, longitude: 81.1496)
         let sut = makeSUT(result: .success([.fixture(name: "Leanne Graham", coordinate: coordinate)]))
 
         await sut.load()
 
-        #expect(sut.state.items.first?.route == .map(name: "Leanne Graham", coordinate: coordinate))
+        #expect(sut.state.items.first?.route == .map(LocatedUser(
+            name: "Leanne Graham",
+            username: "Bret",
+            address: .fixture(),
+            coordinate: coordinate
+        )))
     }
 
     @Test

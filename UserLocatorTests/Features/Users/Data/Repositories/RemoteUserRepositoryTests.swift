@@ -16,18 +16,36 @@ struct RemoteUserRepositoryTests {
                 id: 1,
                 name: "Leanne Graham",
                 username: "Bret",
+                address: Address(
+                    street: "Kulas Light",
+                    suite: "Apt. 556",
+                    city: "Gwenborough",
+                    zipcode: "92998-3874"
+                ),
                 coordinate: Coordinate(latitude: -37.3159, longitude: 81.1496)
             ),
             User(
                 id: 6,
                 name: "Mrs. Dennis Schulist",
                 username: "Leopoldo_Corkery",
+                address: Address(
+                    street: "Norberto Crossing",
+                    suite: "Apt. 950",
+                    city: "South Christy",
+                    zipcode: "23505-1337"
+                ),
                 coordinate: Coordinate(latitude: -71.4197, longitude: 71.7478)
             ),
             User(
                 id: 8,
                 name: "Nicholas Runolfsdottir V",
                 username: "Maxime_Nienow",
+                address: Address(
+                    street: "Ellsworth Summit",
+                    suite: "Suite 729",
+                    city: "Aliyaview",
+                    zipcode: "45169"
+                ),
                 coordinate: Coordinate(latitude: -14.3990, longitude: -120.7677)
             )
         ])

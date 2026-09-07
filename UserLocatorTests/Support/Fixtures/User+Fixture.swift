@@ -5,8 +5,9 @@ extension User {
         id: Int = 1,
         name: String = "Leanne Graham",
         username: String = "Bret",
+        address: Address? = .fixture(),
         coordinate: Coordinate? = Coordinate(latitude: -37.3159, longitude: 81.1496)
     ) -> User {
-        User(id: id, name: name, username: username, coordinate: coordinate)
+        User(id: id, name: name, username: username, address: address, coordinate: coordinate)
     }
 }

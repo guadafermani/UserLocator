@@ -242,6 +242,17 @@
           }
         }
       }
+    },
+    "user_map.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ubicación"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

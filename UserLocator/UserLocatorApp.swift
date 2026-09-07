@@ -21,8 +21,8 @@ struct UserLocatorApp: App {
     @ViewBuilder
     private func destination(for route: UsersRoute) -> some View {
         switch route {
-        case let .map(name, coordinate):
-            UserMapView(viewModel: dependencies.makeUserMapViewModel(name: name, coordinate: coordinate))
+        case let .map(user):
+            UserMapView(viewModel: dependencies.makeUserMapViewModel(user: user))
         }
     }
 }

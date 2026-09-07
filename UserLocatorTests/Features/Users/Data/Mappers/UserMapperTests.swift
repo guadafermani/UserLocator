@@ -10,7 +10,13 @@ struct UserMapperTests {
 
         let user = UserMapper.map(dto)
 
-        #expect(user == User(id: 7, name: "Kurtis Weissnat", username: "Elwyn.Skiles", coordinate: nil))
+        #expect(user == User(
+            id: 7,
+            name: "Kurtis Weissnat",
+            username: "Elwyn.Skiles",
+            address: nil,
+            coordinate: nil
+        ))
     }
 
     @Test
@@ -34,6 +40,61 @@ struct UserMapperTests {
         let user = UserMapper.map(dto)
 
         #expect(user.coordinate == nil)
+    }
+
+    @Test
+    func whenTheAddressIsComplete_mapsEveryField() {
+        let dto = UserDTO.fixture(address: .fixture(
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "Gwenborough",
+            zipcode: "92998-3874"
+        ))
+
+        let user = UserMapper.map(dto)
+
+        #expect(user.address == Address(
+            street: "Kulas Light",
+            suite: "Apt. 556",
+            city: "Gwenborough",
+            zipcode: "92998-3874"
+        ))
+    }
+
+    @Test
+    func whenAnAddressFieldIsAbsent_leavesItAbsent() {
+        let dto = UserDTO.fixture(address: .fixture(suite: nil))
+
+        let user = UserMapper.map(dto)
+
+        #expect(user.address?.suite == nil)
+    }
+
+    @Test(arguments: ["", "   ", "\n"])
+    func whenAnAddressFieldIsBlank_leavesItAbsent(value: String) {
+        let dto = UserDTO.fixture(address: .fixture(street: value))
+
+        let user = UserMapper.map(dto)
+
+        #expect(user.address?.street == nil)
+    }
+
+    @Test
+    func whenAnAddressFieldHasSurroundingSpaces_trimsThem() {
+        let dto = UserDTO.fixture(address: .fixture(city: "  Gwenborough  "))
+
+        let user = UserMapper.map(dto)
+
+        #expect(user.address?.city == "Gwenborough")
+    }
+
+    @Test
+    func whenNoAddressFieldHasValue_producesNoAddress() {
+        let dto = UserDTO.fixture(address: .fixture(street: "  ", suite: nil, city: "", zipcode: nil))
+
+        let user = UserMapper.map(dto)
+
+        #expect(user.address == nil)
     }
 
     @Test
