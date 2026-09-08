@@ -131,6 +131,42 @@ struct UserListViewModelTests {
     }
 
     @Test
+    func whenAppearingBeforeAnyLoadFinished_requestsUsers() async {
+        let useCase = FetchUsersUseCaseStub(result: .success([.fixture()]))
+        let sut = UserListViewModel(fetchUsers: useCase)
+
+        await sut.onAppear()
+
+        #expect(await useCase.executeCallCount == 1)
+    }
+
+    @Test(arguments: [
+        Result<[User], UsersError>.success([.fixture()]),
+        .success([]),
+        .failure(.network)
+    ])
+    func whenAppearingAfterAFinishedLoad_doesNotRequestUsers(result: Result<[User], UsersError>) async {
+        let useCase = FetchUsersUseCaseStub(result: result.mapError { $0 as Error })
+        let sut = UserListViewModel(fetchUsers: useCase)
+        await sut.load()
+
+        await sut.onAppear()
+
+        #expect(await useCase.executeCallCount == 1)
+    }
+
+    @Test
+    func whenAppearingAfterAFinishedLoad_keepsTheStateUnchanged() async {
+        let sut = makeSUT(results: [.success([.fixture(id: 1)]), .success([.fixture(id: 2)])])
+        await sut.load()
+        let stateAfterLoading = sut.state
+
+        await sut.onAppear()
+
+        #expect(sut.state == stateAfterLoading)
+    }
+
+    @Test
     func whenRefreshSucceeds_replacesTheItems() async {
         let sut = makeSUT(results: [.success([.fixture(id: 1)]), .success([.fixture(id: 2)])])
         await sut.load()
@@ -230,17 +266,19 @@ struct UserListViewModelTests {
 
         #expect(await useCase.executeCallCount == 0)
     }
+}
 
-    private func makeSUT(result: Result<[User], Error>) -> UserListViewModel {
-        UserListViewModel(fetchUsers: FetchUsersUseCaseStub(result: result))
-    }
+@MainActor
+private func makeSUT(result: Result<[User], Error>) -> UserListViewModel {
+    UserListViewModel(fetchUsers: FetchUsersUseCaseStub(result: result))
+}
 
-    private func makeSUT(
-        results: [Result<[User], Error>],
-        delay: Duration = .zero
-    ) -> UserListViewModel {
-        UserListViewModel(fetchUsers: FetchUsersUseCaseStub(results: results, delay: delay))
-    }
+@MainActor
+private func makeSUT(
+    results: [Result<[User], Error>],
+    delay: Duration = .zero
+) -> UserListViewModel {
+    UserListViewModel(fetchUsers: FetchUsersUseCaseStub(results: results, delay: delay))
 }
 
 private extension UserListState {

@@ -17,7 +17,7 @@ struct UserListView: View {
             .background(AppColor.background)
             .navigationTitle(Text("user_list.title"))
             .appBarStyle()
-            .task { await viewModel.load() }
+            .task { await viewModel.onAppear() }
     }
 
     @ViewBuilder

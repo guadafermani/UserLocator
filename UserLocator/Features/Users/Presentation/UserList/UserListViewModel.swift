@@ -12,6 +12,12 @@ final class UserListViewModel {
         self.fetchUsers = fetchUsers
     }
 
+    func onAppear() async {
+        guard case .loading = state else { return }
+
+        await load()
+    }
+
     func load() async {
         if let runningLoad {
             return await runningLoad.value

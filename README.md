@@ -189,7 +189,7 @@ model and can be asserted in a test, and the view is left to draw it.
 
 ## Testing strategy
 
-81 tests written with **Swift Testing**, none of which touches the network or needs an API key. The
+84 tests written with **Swift Testing**, none of which touches the network or needs an API key. The
 test doubles are hand-written against the protocols, without a mocking library: they are a few lines
 each and they make what is being simulated explicit.
 
@@ -201,7 +201,8 @@ What is covered:
 - **The repository**, checking that every transport error is translated into the right domain error.
 - **Use cases**, on the happy path and on every failure path.
 - **View models**, in every state they can reach: loading, loaded, empty, error, retry and refresh,
-  including that a failed refresh does not wipe the data already on screen.
+  including that a failed refresh does not wipe the data already on screen and that a screen coming
+  back into view does not ask for the data again.
 - **Formatting rules**, such as initials: compound names, single words, honorifics, accents and
   empty input.
 - **The marker drawing**, by reading pixels from the generated image to verify its geometry, its
@@ -249,7 +250,9 @@ and no defensive `if` is needed to remember it.
 
 **No cache and no persistence.** The app asks for the data and shows what it gets. Keeping it
 between sessions would add a layer with its own invalidation rules, and nothing in the app's current
-behaviour depends on having the data offline.
+behaviour depends on having the data offline. What it does avoid is asking twice for the same thing:
+the list is fetched when the screen first appears, and coming back from the map leaves it untouched.
+Reloading is left to the gestures that mean it — pull to refresh and retry.
 
 **A Spanish interface, driven by a string catalog.** No user-facing string is written in code. There
 is a single language today, but adding another one means translating a file, not touching views.
